@@ -1,6 +1,6 @@
-import express from 'express';
 import bodyParser from 'body-parser';
-import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import express from 'express';
+import { filterImageFromURL } from './util/util';
 
 (async () => {
 
@@ -34,22 +34,29 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
-    res.send("try GET /filteredimage?image_url={{}}")
+  
+    res.send("trysss GET /filteredimage?image_url={{}}")
   } );
   
-    // Displays a simple message to the user
+ 
     app.get( "/filteredimage", async ( req, res ) => {
+      const {image_url} = req.query
 
-      const { image_url} = req.query
-     await filterImageFromURL(image_url).then((filteredpath)=>
-   {     res.status(200).sendFile(filteredpath)}
-        ).catch((error)=>{res.status(422).send( "try GET /filteredimage?image_url={{}}")})
-   // res.send("try GET /filteredimage?image_url={{}}")
-    } );
+   //  console.log(req.query);
+       await filterImageFromURL(image_url).then((data)=>{
+
+          res.status(200).sendFile(data)
+      }).catch((s)=>{
+        res.status(200).send(JSON.stringify(s))
+      } );
+    
+    
+   // res.status(200).send("qqqqqqqqqqtry GET /filteredimage?image_url={{}}")
+  } );
 
   // Start the Server
   app.listen( port, () => {
-      console.log( `server running http://localhost:${ port }` );
-      console.log( `press CTRL+C to stop server` );
+      console.log(` server running http://localhost:${ port } `);
+      console.log(` press CTRL+C to stop server` );
   } );
 })();
