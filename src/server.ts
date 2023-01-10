@@ -40,7 +40,7 @@ import { filterImageFromURL } from './util/util';
   
  
     app.get( "/filteredimage", async ( req, res ) => {
-      const {image_url} = req.query
+      const image_url:string = req.query.image_url
 
    //  console.log(req.query);
        await filterImageFromURL(image_url).then((data)=>{
