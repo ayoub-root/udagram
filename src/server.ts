@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
-import { send } from 'process';
 
 (async () => {
 
@@ -42,9 +41,9 @@ import { send } from 'process';
     app.get( "/filteredimage", async ( req, res ) => {
 
       const { image_url} = req.query
-      filterImageFromURL(image_url).then(filteredpath=>
-        res.status(200).sendFile(filteredpath)
-        ).catch(error=>res.status(422).send( "try GET /filteredimage?image_url={{}}"))
+     await filterImageFromURL(image_url).then((filteredpath)=>
+   {     res.status(200).sendFile(filteredpath)}
+        ).catch((error)=>{res.status(422).send( "try GET /filteredimage?image_url={{}}")})
    // res.send("try GET /filteredimage?image_url={{}}")
     } );
 
