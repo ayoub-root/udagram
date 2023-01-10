@@ -40,14 +40,16 @@ import { filterImageFromURL } from './util/util';
   
  
     app.get( "/filteredimage", async ( req, res ) => {
-      const {image_url} = req.query
-
+      const image_url:string = req.query.image_url
+if(!image_url){
+  res.status(422).send("image rul i empty")
+}
    //  console.log(req.query);
        await filterImageFromURL(image_url).then((data)=>{
 
           res.status(200).sendFile(data)
       }).catch((s)=>{
-        res.status(200).send(JSON.stringify(s))
+        res.status(422).send(JSON.stringify(s))
       } );
     
     
