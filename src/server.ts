@@ -49,7 +49,7 @@ if(!image_url){
 
           res.status(200).sendFile(data)
       }).catch((s)=>{
-        res.status(422).send(JSON.stringify(s))
+        res.status(500).send(JSON.stringify(s))
       } );
     
     
